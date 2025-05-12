@@ -134,3 +134,28 @@
 .loader-show {
   visibility: visible;
 }
+
+/* Style the gallery container */
+.gallery-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center the button horizontally */
+  margin-top: 20px; /* Space between gallery and button */
+}
+
+/* Button style */
+.load-more-btn {
+  width: 125px;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 20px; /* Optional space between gallery and button */
+}
+
+.load-more-btn:hover {
+  background-color: #0056b3;
+}

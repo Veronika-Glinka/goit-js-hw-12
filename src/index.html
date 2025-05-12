@@ -21,7 +21,18 @@
     </form>
 
     <span class="loader"></span>
-    <ul class="gallery"></ul>
+
+    <!-- Wrap gallery and button in a container -->
+    <div class="gallery-container">
+      <ul class="gallery"></ul>
+      <button type="submit" class="load-more-btn">Load more</button>
+      <p
+        class="end-of-collection"
+        style="display: none; color: red; text-align: center"
+      >
+        We're sorry, but you've reached the end of search results.
+      </p>
+    </div>
 
     <script type="module" src="./main.js"></script>
   </body>
