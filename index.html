@@ -2,13 +2,13 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/goit-js-hw-11/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="/goit-js-hw-12/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Image Search App</title>
-    <script type="module" crossorigin src="/goit-js-hw-11/index.js"></script>
-    <link rel="modulepreload" crossorigin href="/goit-js-hw-11/assets/vendor-vwbIfzmB.js">
-    <link rel="stylesheet" crossorigin href="/goit-js-hw-11/assets/vendor-DumFYO8Z.css">
-    <link rel="stylesheet" crossorigin href="/goit-js-hw-11/assets/index-BHuynLKm.css">
+    <script type="module" crossorigin src="/goit-js-hw-12/index.js"></script>
+    <link rel="modulepreload" crossorigin href="/goit-js-hw-12/assets/vendor-DFCQGEf1.js">
+    <link rel="stylesheet" crossorigin href="/goit-js-hw-12/assets/vendor-DumFYO8Z.css">
+    <link rel="stylesheet" crossorigin href="/goit-js-hw-12/assets/index-tn3j7NqA.css">
   </head>
   <body>
     <form class="form">
@@ -24,7 +24,18 @@
     </form>
 
     <span class="loader"></span>
-    <ul class="gallery"></ul>
+
+    <!-- Wrap gallery and button in a container -->
+    <div class="gallery-container">
+      <ul class="gallery"></ul>
+      <button type="submit" class="load-more-btn">Load more</button>
+      <p
+        class="end-of-collection"
+        style="display: none; color: red; text-align: center"
+      >
+        We're sorry, but you've reached the end of search results.
+      </p>
+    </div>
 
   </body>
 </html>
