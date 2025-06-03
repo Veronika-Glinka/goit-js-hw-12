@@ -28,15 +28,6 @@ const lightbox = new SimpleLightbox('.gallery a', {
   captionPosition: 'bottom',
 });
 
-galleryEl.addEventListener('click', handleLinkClick);
-
-function handleLinkClick(e) {
-  if (!e.target.closest('.gallery-link')) {
-    return;
-  }
-  e.preventDefault();
-}
-
 function imageTemplate(image) {
   const tags = image.tags.split(',').slice(0, 3).join(', ');
   return `<li class="gallery-item">
@@ -62,26 +53,9 @@ function createGallery(images, totalHits) {
   galleryEl.insertAdjacentHTML('beforeend', markup);
   smoothScrollToNewImages();
 
-  if (images.length === 0) {
-    iziToast.error({
-      message:
-        'Sorry, there are no images matching your search query. Please try again!',
-      position: 'topRight',
-    });
-    return;
-  }
-
   console.log('Gallery children:', galleryEl.children.length);
   console.log('Total hits:', totalHits);
   console.log('Show end message:', galleryEl.children.length >= totalHits);
-
-  if (galleryEl.children.length >= totalHits) {
-    hideLoadMoreButton();
-    showEndOfCollectionMessage();
-  } else {
-    showLoadMoreButton();
-    hideEndOfCollectionMessage();
-  }
 
   lightbox.refresh();
 }
