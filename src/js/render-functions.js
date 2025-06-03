@@ -5,12 +5,12 @@ import 'izitoast/dist/css/iziToast.min.css';
 
 const galleryEl = document.querySelector('.gallery');
 const loader = document.querySelector('.loader');
-const loadMoreBtn = document.querySelector('.load-more-btn'); // Кнопка "Load more"
-const endOfCollectionMessage = document.querySelector('.end-of-collection'); // Місце для повідомлення
+const loadMoreBtn = document.querySelector('.load-more-btn');
+const endOfCollectionMessage = document.querySelector('.end-of-collection');
 
-// Початкове приховування кнопки "Load more"
+// Початкове приховування
 loadMoreBtn.style.display = 'none';
-endOfCollectionMessage.style.display = 'none'; // Сховати повідомлення про кінець колекції на початку
+endOfCollectionMessage.style.display = 'none';
 
 Object.assign(galleryEl.style, {
   display: 'flex',
@@ -19,6 +19,13 @@ Object.assign(galleryEl.style, {
   flexWrap: 'wrap',
   justifyContent: 'center',
   margin: '24px',
+});
+
+// ✅ ІНСТАНЦІЮЄМО lightbox ОДИН РАЗ
+const lightbox = new SimpleLightbox('.gallery a', {
+  captionsData: 'alt',
+  captionDelay: 250,
+  captionPosition: 'bottom',
 });
 
 galleryEl.addEventListener('click', handleLinkClick);
@@ -32,7 +39,6 @@ function handleLinkClick(e) {
 
 function imageTemplate(image) {
   const tags = image.tags.split(',').slice(0, 3).join(', ');
-
   return `<li class="gallery-item">
     <a class="gallery-link" href="${image.largeImageURL}">
       <img class="gallery-image" src="${image.webformatURL}" alt="${tags}" />
@@ -53,8 +59,6 @@ function imagesTemplate(images) {
 
 function createGallery(images, totalHits) {
   const markup = imagesTemplate(images);
-
-  // Додаємо нові елементи в кінець галереї
   galleryEl.insertAdjacentHTML('beforeend', markup);
   smoothScrollToNewImages();
 
@@ -64,24 +68,21 @@ function createGallery(images, totalHits) {
         'Sorry, there are no images matching your search query. Please try again!',
       position: 'topRight',
     });
+    return;
   }
 
-  // Показуємо кнопку "Load more" тільки після завантаження зображень
-  if (images.length > 0) {
-    showLoadMoreButton();
-  }
+  console.log('Gallery children:', galleryEl.children.length);
+  console.log('Total hits:', totalHits);
+  console.log('Show end message:', galleryEl.children.length >= totalHits);
 
-  // Після того як всі зображення завантажені, ховаємо кнопку "Load more" і показуємо повідомлення
-  if (galleryEl.children.length >= 100) {
+  if (galleryEl.children.length >= totalHits) {
     hideLoadMoreButton();
     showEndOfCollectionMessage();
+  } else {
+    showLoadMoreButton();
+    hideEndOfCollectionMessage();
   }
 
-  const lightbox = new SimpleLightbox('.gallery a', {
-    captionsData: 'alt',
-    captionDelay: 250,
-    captionPosition: 'bottom',
-  });
   lightbox.refresh();
 }
 
@@ -98,15 +99,19 @@ function hideLoader() {
 }
 
 function showLoadMoreButton() {
-  loadMoreBtn.style.display = 'inline-block'; // Показуємо кнопку "Load more"
+  loadMoreBtn.style.display = 'inline-block';
 }
 
 function hideLoadMoreButton() {
-  loadMoreBtn.style.display = 'none'; // Ховаємо кнопку "Load more"
+  loadMoreBtn.style.display = 'none';
 }
 
 function showEndOfCollectionMessage() {
-  endOfCollectionMessage.style.display = 'inline-block'; // Показуємо повідомлення про кінець колекції
+  endOfCollectionMessage.style.display = 'block'; // block для <p>
+}
+
+function hideEndOfCollectionMessage() {
+  endOfCollectionMessage.style.display = 'none';
 }
 
 function smoothScrollToNewImages() {
@@ -129,5 +134,6 @@ export {
   showLoadMoreButton,
   hideLoadMoreButton,
   showEndOfCollectionMessage,
+  hideEndOfCollectionMessage,
   smoothScrollToNewImages,
 };

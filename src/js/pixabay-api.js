@@ -16,18 +16,19 @@ export async function getImagesByQuery(query, page = 1) {
         orientation: 'horizontal',
         safesearch: true,
         page,
-        per_page: 15, // Встановлюємо кількість зображень на сторінку
+        per_page: 200,
       },
     });
 
-    const { hits } = response.data;
-    return hits;
+    const { hits, totalHits } = response.data;
+
+    return { hits, totalHits };
   } catch (error) {
     iziToast.error({
       title: 'Error',
       message: 'An error occurred while fetching images.',
       position: 'topRight',
     });
-    return [];
+    return { hits: [], totalHits: 0 };
   }
 }
